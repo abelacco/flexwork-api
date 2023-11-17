@@ -1,6 +1,6 @@
 // Load environment variables from .env file
 require('dotenv').config();
-const { FRONT_URL } = process.env;
+const { FRONT_URL , PORT } = process.env;
 
 // Import required modules
 const express = require('express');
@@ -40,12 +40,14 @@ server.use((err, req, res, next) => {
 const maxAttempts = 60;
 let attempts = 0;
 
+const port = process.env.PORT || 3001;
+
 const tryConnect = async () => {
     try {
         await conn.authenticate();
         await conn.sync();
         console.log('Database connected successfully.');
-        server.listen(3001, () => {
+        server.listen(port, () => {
             console.log('Server listening at port 3001');
         });
     } catch (error) {
