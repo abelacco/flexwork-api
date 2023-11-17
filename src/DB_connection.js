@@ -6,7 +6,11 @@ const path = require('path');
 const { DB_USER, DB_PASSWORD, DB_HOST } = process.env;
 
 // Create a new instance of Sequelize with database connection details
-const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/flexworks_40fc`, {
+// const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}/flexworks_40fc`, {
+//   logging: false, 
+//   native: false, 
+// });
+const sequelize = new Sequelize(`postgres://${DB_USER}:${DB_PASSWORD}@${DB_HOST}:${DB_PORT}/${DB_NAME}`, {
   logging: false, 
   native: false, 
 });
