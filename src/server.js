@@ -21,8 +21,21 @@ server.use(express.urlencoded({ extended: true, limit: '50mb' }));
 server.use(express.json({ limit: '50mb' }));
 server.use(cookieParser());
 
+// server.use((req, res, next) => {
+//     res.header('Access-Control-Allow-Origin',  FRONT_URL);
+//     res.header('Access-Control-Allow-Credentials', 'true');
+//     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+//     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
+//     next();
+// });
 server.use((req, res, next) => {
-    res.header('Access-Control-Allow-Origin',  FRONT_URL);
+    const allowedOrigins = ['https://www.flexworklatam.com', 'https://flexworklatam.com'];
+    const origin = req.headers.origin;
+
+    if (allowedOrigins.includes(origin)) {
+        res.header('Access-Control-Allow-Origin', origin);
+    }
+
     res.header('Access-Control-Allow-Credentials', 'true');
     res.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
     res.header('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, DELETE');
@@ -40,7 +53,7 @@ server.use((err, req, res, next) => {
 const maxAttempts = 60;
 let attempts = 0;
 
-const port = process.env.PORT || 3001;
+const port = PORT || 3001;
 
 const tryConnect = async () => {
     try {
