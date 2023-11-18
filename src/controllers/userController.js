@@ -13,6 +13,7 @@ dotenv.config({ path: '../.env' });
 const saltRounds = 10;
 
 const urlFront = FRONT_URL;// espero que exista
+console.log(urlFront);
 const createUser = async (req, res) => {
     const { username, email, password, type } = req.body;
     try {
@@ -25,7 +26,7 @@ const createUser = async (req, res) => {
             type,
             emailToken: crypto.randomBytes(64).toString("hex")
         });
-        console.log(fromEmail);
+        const fromEmail = `"Verificación de Correo Electrónico Flexworks" <${process.env.MAIL_USERNAME}>`;
         transporter.sendMail({
             from: fromEmail, // Dirección del remitente
             to: email, // Lista de destinatarios
